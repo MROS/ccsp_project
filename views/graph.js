@@ -1,3 +1,4 @@
+// var fs = require('fs');
 var myGraph = $('#container');
 var myChart;
 //high chart theme
@@ -220,9 +221,7 @@ $(function () {
 });
 
 
-var cate = ['大學里', '敦煌里', '仁慈里','華聲里', '仁愛里', '新龍里', '古風里', 	'義安里', '古莊里', '義村里', '正聲里', '群英里'];
-// cate[0] = "hello";
-
+var cate = ['大學里', '敦煌里', '仁慈里'];
 var data = {
         title: {
             text: '各里預算分配圖'
@@ -233,47 +232,59 @@ var data = {
         series: [{
             type: 'column',
             name: '里內防火巷清潔(消毒)維護',
-            data: [3, 2, 1, 3, 4]
+            data: [3, 2, 1]
         }
         ,
         {
             type: 'column',
             name: '其他里內公共區域認養必要支出',
-            data: [3, 2, 1, 3, 4]
+            data: [3, 2, 1]
         },
         {
             type: 'column',
             name: '守望相助工作',
-            data: [5, 4, 3, 2, 1]
+            data: [5, 4, 3]
         },
         {
             type: 'column',
             name: '公園清潔',
-            data: [5, 4, 3, 2, 1]
+            data: [5, 4, 3]
         }
         ]
     }
 
+
+
 //graph init
 $(function () {
     myChart = myGraph.highcharts(data);
-    addData();
 });
     
-var addData = function () {
-	village = '大學里';
-	dataArray = [10,5,4,7];
-	$('#clkbtn').click(function(){
+	$(function () {
 
-		myChart = myGraph.highcharts();
-		var oldCate = myChart.xAxis[0].categories;
-		myChart.xAxis[0].setCategories(oldCate.concat([village]));
+$('.addDataBtn').click(function(){
+	village = $(this).text();
+	// var json;
+	// $.getJSON('../大安區資料/大學里收支決算表.json', {}, function (data){
+	// 	json = data;
+	// });
+	// var arr = JSON.parse(json);
+	// console.log(arr);
+	dataArray = [
+				(Math.random())*10,
+				(Math.random())*10,
+				(Math.random())*10,
+				(Math.random())*10
+				];
+	myChart = myGraph.highcharts();
+	var oldCate = myChart.xAxis[0].categories;
+	myChart.xAxis[0].setCategories(oldCate.concat([village]));
 
-		for (var i=0; i<dataArray.length; i++)
-		{
-			myChart.series[i].addPoint([village,dataArray[i]]);
-		}
+	for (var i=0; i<dataArray.length; i++)
+	{
+		myChart.series[i].addPoint([village,dataArray[i]]);
+	}
 
-	});
-};
+});
 
+});
