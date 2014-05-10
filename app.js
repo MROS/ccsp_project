@@ -4,7 +4,7 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
+var routes = require('./routes/index');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -28,8 +28,22 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+app.get('/lib/*', function(request, response) {
+    response.sendfile(path.resolve("." + request.url));
+});
+
+app.get('/public/*', function(request, response) {
+    response.sendfile(path.resolve("." + request.url));
+});
+
+app.get('/views/*', function(request, response) {
+    response.sendfile(path.resolve("." + request.url));
+});
+
+app.get('/', routes.home);
 app.get('/users', user.list);
+
+normal_page = ['lib/bootstrap-3.1.1-dist/']
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
