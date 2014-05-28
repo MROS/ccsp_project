@@ -55,6 +55,14 @@
 
   
 	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+  <div id="selectBar">
+      <div id="village-input-bar" class="input-group" style="width: 200px;">
+        <input type="text" class="form-control"> <!-- style="width: 100px;"> -->
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Go!</button>
+        </span>
+    </div><!-- /input-group -->
+  </div>
 
 	<!-- <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -63,22 +71,27 @@
         <button onclick="return false;" type="submit" class="addDataBtn btn btn-default" >Submit</button>
   </form>
  -->
-  <div class="btn-toolbar" role="toolbar">
+  <div id="division-bar" class="btn-toolbar" role="toolbar">
     <div class="btn-group">
-      <button type="button" class="addDataBtn btn btn-default" >大學里</button>
-      <button type="button" class="addDataBtn btn btn-default" >敦煌里</button>
-      <button type="button" class="addDataBtn btn btn-default" >仁慈里</button>
-      <button type="button" class="addDataBtn btn btn-default" >華聲里</button>
-      <button type="button" class="addDataBtn btn btn-default" >仁愛里</button>
-      <button type="button" class="addDataBtn btn btn-default" >新龍里</button>
-      <button type="button" class="addDataBtn btn btn-default" >古風里</button>
-      <button type="button" class="addDataBtn btn btn-default" >義安里</button>
-      <button type="button" class="addDataBtn btn btn-default" >古莊里</button>
-      <button type="button" class="addDataBtn btn btn-default" >義村里</button>
-      <button type="button" class="addDataBtn btn btn-default" >正聲里</button>
-      <button type="button" class="addDataBtn btn btn-default" >群英里</button>
+      <button type="button" class="btn btn-default" >北投區</button>
+      <button type="button" class="btn btn-default" >中山區</button>
+      <button type="button" class="btn btn-default" >大同區</button>
+      <button type="button" class="btn btn-default" >萬華區</button>
+      <button type="button" class="btn btn-default" >中正區</button>
+      <button type="button" class="btn btn-default" >大安區</button>
+      <button type="button" class="btn btn-default" >士林區</button>
+      <button type="button" class="btn btn-default" >松山區</button>
+      <button type="button" class="btn btn-default" >內湖區</button>
+      <button type="button" class="btn btn-default" >信義區</button>
+      <button type="button" class="btn btn-default" >南港區</button>
+      <button type="button" class="btn btn-default" >文山區</button>
     </div>
 
+  <!-- </div> -->
+
+  <div id="village-bar">
+    <div class="btn-group">
+    </div>
   </div>
 
 
@@ -89,7 +102,7 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="graph.js"></script>
-	<script>//addData('a',[1,2,3]);</script>
+  <script type="text/javascript" src="selectBar.js"></script>
 
   </body>
 </html>
