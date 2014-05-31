@@ -2,9 +2,8 @@ var selectBar = $('#selectBar');
 var village_input_bar = $('#village-input-bar');
 
 village_input_bar.find('button').click(function(){
-	console.log("press button");
 	var text = village_input_bar.find('input').val();
-	console.log('text =', text);
+	addVillageData(text);
 });
 
 var allDivision = 
@@ -23,6 +22,8 @@ var allDivision =
 	"中正區" : [ '三愛里',  '文北里',  '文盛里',  '文祥里',  '水源里',  '永功里',  '永昌里',  '光復里',  '幸市里',  '幸福里',  '忠勤里',  '東門里',  '林興里',  '板溪里',  '河堤里',  '南門里',  '南福里',  '建國里',  '梅花里',  '頂東里',  '富水里',  '廈安里',  '愛國里',  '新營里',  '網溪里',  '黎明里',  '螢圃里',  '螢雪里',  '龍光里',  '龍福里',  '龍興里' ]
 };
 
+
+
 $('#division-bar').find('button').click(function(){
 	var d = $(this).text();
 	$('#village-bar .btn-group').find('button').remove();
@@ -31,6 +32,66 @@ $('#division-bar').find('button').click(function(){
 		$('#village-bar .btn-group').append('<button type="button" class="btn btn-primary btn-sm" data-toggle="button">' + allDivision[d][i] + '</button>');
 	}
 	$('#village-bar .btn-group').find('button').click(function(){
-
+		addVillageData($(this).text());
 	});
 });
+
+$('#delete-btn').click(function(){
+	removeVillageData('中央里');
+});
+
+function addVillageData(village){
+
+	//dataArray = getData(village)    blablabla.....
+	var dataArray = [];
+	for (var i=0; i<=12; i++)
+	{
+		dataArray.push(5*Math.random());
+	}
+
+	var myChart = $('#container').highcharts();
+	var oldV = myChart.xAxis[0].categories;
+	myChart.xAxis[0].setCategories(oldV.push(village));
+	for (var i=0; i<13; i++)
+	{
+		myChart.series[i].addPoint(dataArray[i]);
+	}
+	// console.log(myChart.series[0].data[myChart.series[0].data.length-1].category,myChart.series[0].data[myChart.series[0].data.length-1]);
+
+}
+
+function removeVillageData(village){
+	var myChart = $('#container').highcharts();
+	var oldV = myChart.xAxis[0].categories;
+	
+	var newV = [];
+	var si = -1;
+	for (var i = 0; i < oldV.length; i++) {
+		if (oldV[i]!=village)
+			newV.push(oldV[i]);
+		else si = i;
+	};
+	if (si==-1)
+	{
+		console.log('Can\'t remove the village. Because the village is not in the graph.');
+		return;
+	}
+
+	myChart.xAxis[0].setCategories(newV);
+
+	for (var j = 0; j < 13; j++) {
+		var Series = myChart.series[j];
+		var Data = (myChart.series[j].yData).slice(0);
+		Data.splice(si,1);
+
+		Series.setData([]);
+
+		for (var i = 0; i < Data.length; i++) {
+			Series.addPoint(Data[i]);
+		};
+
+	}
+
+
+}
+

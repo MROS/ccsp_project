@@ -296,45 +296,23 @@ var data = {
 
 //graph init
 myGraph.highcharts(data);
-setRemoveBtn();
-
-$('.addDataBtn').click(function(){
-
-	addVillageData($(this).text());
-
-});
+// setRemoveBtn();
 
 
-function addVillageData(village){
-	//dataArray = getData(village)    blablabla.....
-	var dataArray = [];
-	for (var i=0; i<=12; i++)
-	{
-		dataArray.push(5*Math.random());
-	}
 
-	var myChart = myGraph.highcharts();
-	var oldV = myChart.xAxis[0].categories;
-	myChart.xAxis[0].setCategories(oldV.concat([village]));
-	for (var i=0; i<dataArray.length; i++)
-	{
-		myChart.series[i].addPoint([village,dataArray[i]]);
-	}
 
-	setRemoveBtn();
 
-}
 
-function setRemoveBtn(){
-	var s = document.createElement("div");
-    s.innerHTML = "There is no spoon.";
-	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').click(function(){
-		console.log('click village');
-	});
-}
+// function setRemoveBtn(){
+// 	var s = document.createElement("div");
+//     s.innerHTML = "There is no spoon.";
+// 	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').click(function(){
+// 		console.log('click village');
+// 	});
+// }
 
-function removeVillageData(village){
+// function removeVillageData(village){
 	
-}
+// }
 
 
