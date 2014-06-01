@@ -1,10 +1,14 @@
 var selectBar = $('#selectBar');
 var village_input_bar = $('#village-input-bar');
 
+var selectedVillage = [];
+
 village_input_bar.find('button').click(function(){
 	var text = village_input_bar.find('input').val();
 	addVillageData(text);
 });
+
+setRemoveBtn();
 
 var allDivision = 
 {
@@ -23,25 +27,45 @@ var allDivision =
 };
 
 
-
 $('#division-bar').find('button').click(function(){
-	var d = $(this).text();
-	$('#village-bar .btn-group').find('button').remove();
-	for (var i=0; i<allDivision[d].length; i++)
+	$('#division-bar').find('button').removeClass('active');
+	$(this).addClass('active');
+	var division = allDivision[$(this).text()];
+	var btnGroup = $('#village-bar .btn-group');
+	btnGroup.find('button').remove();
+	for (var i=0; i<division.length; i++)
 	{
-		$('#village-bar .btn-group').append('<button type="button" class="btn btn-primary btn-sm" data-toggle="button">' + allDivision[d][i] + '</button>');
+		btnGroup.append('<button type="button" class="btn btn-primary btn-sm">' + division[i] + '</button>');
 	}
-	$('#village-bar .btn-group').find('button').click(function(){
-		addVillageData($(this).text());
+
+	var sv = selectedVillage.slice(0);
+	btnGroup.find('button').each(function(){
+		if(sv.indexOf($(this).text())!=-1)
+		{
+			$(this).addClass('active');
+		}
+	});
+
+	btnGroup.find('button').click(function()
+	{
+		if (!($(this).hasClass('active')))
+		{
+			addVillageData($(this).text());
+			$(this).toggleClass('active');
+		}
+		else
+		{
+			removeVillageData($(this).text());
+			$(this).toggleClass('active');
+		}
 	});
 });
 
-$('#delete-btn').click(function(){
-	removeVillageData('中央里');
-});
 
 function addVillageData(village){
 
+	if (isValidVillage(village))
+	{
 	//dataArray = getData(village)    blablabla.....
 	var dataArray = [];
 	for (var i=0; i<=12; i++)
@@ -50,25 +74,55 @@ function addVillageData(village){
 	}
 
 	var myChart = $('#container').highcharts();
-	var oldV = myChart.xAxis[0].categories;
-	myChart.xAxis[0].setCategories(oldV.push(village));
+	selectedVillage.push(village);
+	myChart.xAxis[0].setCategories(selectedVillage);
 	for (var i=0; i<13; i++)
 	{
-		myChart.series[i].addPoint(dataArray[i]);
+		myChart.series[i].addPoint(dataArray[i],false);
 	}
 	// console.log(myChart.series[0].data[myChart.series[0].data.length-1].category,myChart.series[0].data[myChart.series[0].data.length-1]);
+	myChart.redraw();
+	setRemoveBtn();
+	}
+}
 
+function isValidVillage(village){
+	for (var d in allDivision) {
+		console.log(allDivision[d]);
+		if(allDivision[d].indexOf(village)!=-1)
+		{
+			return true;
+		}
+	};
+	console.log(village + ' is not a valid village');
+	return false;
+}
+
+function setRemoveBtn(){
+
+	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').click(function(){
+		console.log('remove', $(this).text());
+		var v = $(this).text();
+		// $(this).text('removing...');
+		removeVillageData(v);
+	});
+	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').hover(function(){
+		// console.log('focus in');
+		$(this).css('fill', 'rgba(255, 104, 104, 1)');
+	}, function(){
+		// console.log('focus out');
+		$(this).css('fill', '#E0E0E3');
+	});
 }
 
 function removeVillageData(village){
 	var myChart = $('#container').highcharts();
-	var oldV = myChart.xAxis[0].categories;
 	
 	var newV = [];
 	var si = -1;
-	for (var i = 0; i < oldV.length; i++) {
-		if (oldV[i]!=village)
-			newV.push(oldV[i]);
+	for (var i = 0; i < selectedVillage.length; i++) {
+		if (selectedVillage[i]!=village)
+			newV.push(selectedVillage[i]);
 		else si = i;
 	};
 	if (si==-1)
@@ -76,22 +130,22 @@ function removeVillageData(village){
 		console.log('Can\'t remove the village. Because the village is not in the graph.');
 		return;
 	}
-
-	myChart.xAxis[0].setCategories(newV);
+	selectedVillage = newV;
+	myChart.xAxis[0].setCategories(selectedVillage);
 
 	for (var j = 0; j < 13; j++) {
 		var Series = myChart.series[j];
 		var Data = (myChart.series[j].yData).slice(0);
 		Data.splice(si,1);
 
-		Series.setData([]);
+		Series.setData([],false);
 
 		for (var i = 0; i < Data.length; i++) {
-			Series.addPoint(Data[i]);
+			Series.addPoint(Data[i],false);
 		};
 
 	}
+	myChart.redraw();
 
-
+	setRemoveBtn();
 }
-

@@ -215,79 +215,87 @@ Highcharts.setOptions(Highcharts.theme);
 
 
 
-var villages = ['大學里'];
+var villages = [];
 var serieName = ["防火巷之整頓清理","其他里內公共區域認養之必要支出","守望相助工作","鄰里公園之清潔維護","活動中心里民活動場所各項設施之購置及維修 里民活動場所公共意外責任險 里民活動場所辦理活動補助水電費","里內巷弄簡易照明設施修","巷道或水溝之維修","里鄰資訊電腦化相關設備之設置升級維修零件耗材及電腦網路月租費等","里辦公處辦公機具之購置或租用","為民服務設施之購置、租用及維修","里內防疫保健防災救災器材之購置(或租用)及其他小型零星工程或公共設施","辦理節慶公益環保等相關活動","志工相關費用"];
 var data = {
         title: {
-            text: '各里預算分配圖'
+            text: '各里每年經費運用圖'
         },
         xAxis: {
             categories: villages
         },
+        yAxis: {
+            title: {
+                text: '元'
+            }
+        },
+        lang: {
+            noData: "Nichts zu anzeigen"
+        },
         series: [{
             type: 'column',
             name: serieName[0],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[1],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[2],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[3],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[4],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[5],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[6],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[7],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[8],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[9],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[10],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[11],
-            data: [1]
+            data: []
         },
         {
             type: 'column',
             name: serieName[12],
-            data: [1]
+            data: []
         }
         ]
     }
@@ -303,13 +311,7 @@ myGraph.highcharts(data);
 
 
 
-// function setRemoveBtn(){
-// 	var s = document.createElement("div");
-//     s.innerHTML = "There is no spoon.";
-// 	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').click(function(){
-// 		console.log('click village');
-// 	});
-// }
+
 
 // function removeVillageData(village){
 	
