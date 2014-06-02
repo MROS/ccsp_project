@@ -177,7 +177,9 @@ function initialize() {
 					for (var i=0;i<results.length;i++) {
 						var address = results[i].formatted_address;
 						console.log(address);
-						if (address.indexOf('里') > 0) {
+						var chex = address.indexOf('里') > 0;
+						var chey = address.indexOf('村') > 0;
+						if (chex || chey) {
 							addr = address; break;
 						}
 					}
