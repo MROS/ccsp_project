@@ -1,11 +1,24 @@
-var selectBar = $('#selectBar');
 var village_input_bar = $('#village-input-bar');
 
 var selectedVillage = [];
 
+var alertbox = function(words)
+{
+	return $('<div class="alert alert-warning alert-dismissable" style="width: 200px"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + words + '</div>');
+}
+
 village_input_bar.find('button').click(function(){
 	var text = village_input_bar.find('input').val();
-	addVillageData(text);
+	if(isValidVillage(text))
+	{
+		addVillageData(text);
+		village_input_bar.find('input').val("");
+	}
+	else
+	{
+		village_input_bar.append(alertbox('沒有這個里。'));
+	}
+
 });
 
 setRemoveBtn();
@@ -64,8 +77,7 @@ $('#division-bar').find('button').click(function(){
 
 function addVillageData(village){
 
-	if (isValidVillage(village))
-	{
+
 	//dataArray = getData(village)    blablabla.....
 	var dataArray = [];
 	for (var i=0; i<=12; i++)
@@ -83,18 +95,18 @@ function addVillageData(village){
 	// console.log(myChart.series[0].data[myChart.series[0].data.length-1].category,myChart.series[0].data[myChart.series[0].data.length-1]);
 	myChart.redraw();
 	setRemoveBtn();
-	}
+
 }
 
 function isValidVillage(village){
 	for (var d in allDivision) {
-		console.log(allDivision[d]);
 		if(allDivision[d].indexOf(village)!=-1)
 		{
 			return true;
 		}
 	};
 	console.log(village + ' is not a valid village');
+
 	return false;
 }
 
