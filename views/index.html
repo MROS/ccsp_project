@@ -125,19 +125,22 @@ function initialize() {
         geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[3]) {
-                    var addr;
+                    var addr, villanm;
                     console.log(results.length);
                     for (var i=0;i<results.length;i++) {
                         var address = results[i].formatted_address;
                         console.log(address);
-                        var chex = address.indexOf('里') > 0;
+                        var vx = address.indexOf('里'), vy = address.indexOf('村');
+                        var chex = vx > 0;
                         var chey = address.indexOf('村') > 0;
+                        if (chex) { villanm = address.substring(vx-2, vx); } else { villanm = address.substring(vy-2, vy); }
                         if (chex || chey) {
                             addr = address; break;
                         }
                     }
+                    var linkleaderinfo = 'leader_info?' + villanm;
                     console.log(addr.indexOf('里'));
-                    infowindow.setContent('<div><strong>' + placename + '</strong><br>' + addr);
+                    infowindow.setContent('<div><strong>' + placename + '</strong><br><a href="' + linkleaderinfo + '">' + addr + '</a>');
                     infowindow.open(map, marker);
                 } else {
                     alert('No results found');
@@ -174,7 +177,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div id="map" class="margin-right:5px;margin-left:5px;">
     
     <div>
-        <input id="pac-input" class="controls" type="text" placeholder="Enter an address and check its village">
+        <input id="pac-input" class="controls" type="text" placeholder="Enter an address or location and check its village">
         <div id="map-canvas"></div>
     </div>
     
