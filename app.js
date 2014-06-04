@@ -1,14 +1,12 @@
-
 /**
  * Module dependencies.
  */
-
 var express = require('express');
 var routes = require('./routes/index');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var Villa = require('retrive').Villa
+var Villa = require('./database/local_retrive').whole_data
 
 var app = express();
 
@@ -47,9 +45,10 @@ app.get('/users', user.list);
 // 獲取里訊息
 app.get('/villa?*', function(request, response) {
 	var str = request.url
-	var villa = str.slice(str.search(/\?/) + 1, str.length);
-	console.log(decodeURI(villa));
-	console.log(typeof villa);
+	var villa = decodeURI(str.slice(str.search(/\?/) + 1, str.length));
+	// console.log(JSON.stringify(Villa[villa]));
+	// console.log((JSON.stringify(Villa[villa])));
+	response.send(JSON.stringify(Villa[villa]));
 });
 
 normal_page = ['lib/bootstrap-3.1.1-dist/']
