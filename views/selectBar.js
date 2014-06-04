@@ -1,11 +1,27 @@
-var selectBar = $('#selectBar');
 var village_input_bar = $('#village-input-bar');
 
+var selectedVillage = [];
+
+var alertbox = function(words)
+{
+	return $('<div class="alert alert-warning alert-dismissable" style="width: 200px"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + words + '</div>');
+}
+
 village_input_bar.find('button').click(function(){
-	console.log("press button");
 	var text = village_input_bar.find('input').val();
-	console.log('text =', text);
+	if(isValidVillage(text))
+	{
+		addVillageData(text);
+		village_input_bar.find('input').val("");
+	}
+	else
+	{
+		village_input_bar.append(alertbox('沒有這個里。'));
+	}
+
 });
+
+setRemoveBtn();
 
 var allDivision = 
 {
@@ -23,14 +39,125 @@ var allDivision =
 	"中正區" : [ '三愛里',  '文北里',  '文盛里',  '文祥里',  '水源里',  '永功里',  '永昌里',  '光復里',  '幸市里',  '幸福里',  '忠勤里',  '東門里',  '林興里',  '板溪里',  '河堤里',  '南門里',  '南福里',  '建國里',  '梅花里',  '頂東里',  '富水里',  '廈安里',  '愛國里',  '新營里',  '網溪里',  '黎明里',  '螢圃里',  '螢雪里',  '龍光里',  '龍福里',  '龍興里' ]
 };
 
-$('#division-bar').find('button').click(function(){
-	var d = $(this).text();
-	$('#village-bar .btn-group').find('button').remove();
-	for (var i=0; i<allDivision[d].length; i++)
-	{
-		$('#village-bar .btn-group').append('<button type="button" class="btn btn-primary btn-sm" data-toggle="button">' + allDivision[d][i] + '</button>');
-	}
-	$('#village-bar .btn-group').find('button').click(function(){
 
+$('#division-bar').find('button').click(function(){
+	$('#division-bar').find('button').removeClass('active');
+	$(this).addClass('active');
+	var division = allDivision[$(this).text()];
+	var btnGroup = $('#village-bar .btn-group');
+	btnGroup.find('button').remove();
+	for (var i=0; i<division.length; i++)
+	{
+		btnGroup.append('<button type="button" class="btn btn-primary btn-sm">' + division[i] + '</button>');
+	}
+
+	var sv = selectedVillage.slice(0);
+	btnGroup.find('button').each(function(){
+		if(sv.indexOf($(this).text())!=-1)
+		{
+			$(this).addClass('active');
+		}
+	});
+
+	btnGroup.find('button').click(function()
+	{
+		if (!($(this).hasClass('active')))
+		{
+			addVillageData($(this).text());
+			$(this).toggleClass('active');
+		}
+		else
+		{
+			removeVillageData($(this).text());
+			$(this).toggleClass('active');
+		}
 	});
 });
+
+
+function addVillageData(village){
+
+
+	//dataArray = getData(village)    blablabla.....
+	var dataArray = [54000, 1000, 95000, 105000, 10000, 0, 0, 0, 0, 35200, 0, 0, 0];
+	// for (var i=0; i<=12; i++)
+	// {
+	// 	dataArray.push(5*Math.random());
+	// }
+
+	var myChart = $('#container').highcharts();
+	selectedVillage.push(village);
+	myChart.xAxis[0].setCategories(selectedVillage);
+	for (var i=0; i<13; i++)
+	{
+		myChart.series[i].addPoint(dataArray[i],false);
+	}
+	// console.log(myChart.series[0].data[myChart.series[0].data.length-1].category,myChart.series[0].data[myChart.series[0].data.length-1]);
+	myChart.redraw();
+	setRemoveBtn();
+
+}
+
+function isValidVillage(village){
+	for (var d in allDivision) {
+		if(allDivision[d].indexOf(village)!=-1)
+		{
+			return true;
+		}
+	};
+	console.log(village + ' is not a valid village');
+
+	return false;
+}
+
+function setRemoveBtn(){
+
+	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').click(function(){
+		console.log('remove', $(this).text());
+		var v = $(this).text();
+		// $(this).text('removing...');
+		removeVillageData(v);
+	});
+	$('.highcharts-axis-labels.highcharts-xaxis-labels').find('text').hover(function(){
+		// console.log('focus in');
+		$(this).css('fill', 'rgba(255, 104, 104, 1)');
+	}, function(){
+		// console.log('focus out');
+		$(this).css('fill', '#E0E0E3');
+	});
+}
+
+function removeVillageData(village){
+	var myChart = $('#container').highcharts();
+	
+	var newV = [];
+	var si = -1;
+	for (var i = 0; i < selectedVillage.length; i++) {
+		if (selectedVillage[i]!=village)
+			newV.push(selectedVillage[i]);
+		else si = i;
+	};
+	if (si==-1)
+	{
+		console.log('Can\'t remove the village. Because the village is not in the graph.');
+		return;
+	}
+	selectedVillage = newV;
+	myChart.xAxis[0].setCategories(selectedVillage);
+
+	for (var j = 0; j < 13; j++) {
+		var Series = myChart.series[j];
+		var Data = (myChart.series[j].yData).slice(0);
+		Data.splice(si,1);
+
+		Series.setData([],false);
+
+		for (var i = 0; i < Data.length; i++) {
+			Series.addPoint(Data[i],false);
+		};
+
+	}
+	myChart.redraw();
+
+	setRemoveBtn();
+}
