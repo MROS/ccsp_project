@@ -7,8 +7,8 @@ leader_data = {};
 // console.log(path.resolve('../data/fond_data/'));
 
 // console.log(files[i]);
-var data = fs.readFileSync('data/fond_data/里長資料/里長名單.json');
-var lesders = JSON.parse(data);
+var data = fs.readFileSync('data/里長資料/里長名單.json');
+var leaders = JSON.parse(data);
 for (var j = 0; j < leaders.length; j++) { 
 	// console.log(villas[j].Villa);
 	leader_data[leaders[j].villa] = leaders[j];

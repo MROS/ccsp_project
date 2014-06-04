@@ -8,6 +8,7 @@ html(lang="en")
     meta(name="description", content="")
     meta(name="author", content="")
     link(rel="shortcut icon", href="../favicon.ico")
+    link(href="views/leader.css", rel="stylesheet")
     title 決戰百里侯 ─ 你對你的村/里了解多少?
     // Bootstrap core CSS
     link(href="../lib/bootstrap-3.1.1-dist/css/bootstrap.min.css", rel="stylesheet")
@@ -23,11 +24,11 @@ html(lang="en")
         h1= "拜訪你家的里長  ──  " + villa + "里"
     #leader_info
       ul
-        li= "里長:" + name
-        li= "電話:" + phone
-        li= "手機:" + cellphone
-        li= "辦公室地址:" + 
-		  
+        li= "里長：" + name
+        li= "電話：" + phone
+        li= "手機：" + cellphone
+        li= "辦公室地址：" + address
+
     #footer
       .container
         p.text-muted
