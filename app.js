@@ -7,6 +7,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var Villa = require('./database/local_retrive').whole_data
+var leader = require('./database/leader_retrive').leader_data
 
 var app = express();
 
@@ -44,9 +45,9 @@ app.get('/users', user.list);
 app.get('/leader_info?*', function(request, response) {
 	var str = request.url
 	var villa = decodeURI(str.slice(str.search(/\?/) + 1, str.length));
-	// console.log(JSON.stringify(Villa[villa]));
-	// console.log((JSON.stringify(Villa[villa])));
-	response.render('/views/leader_info', {villa: villa});
+
+	// response.render('leader_info', {villa: "里"});
+	response.render('leader_info', leader[villa]);
 })
 
 // 獲取里訊息

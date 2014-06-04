@@ -1,19 +1,5 @@
 [
     {
-        "dist": "",
-        "villa": "",
-        "name": "",
-        "phone": "",
-        "cellphone": ""
-    },
-    {
-        "dist": "區別",
-        "villa": "里別",
-        "name": "里長姓名",
-        "phone": "里辦公處電話",
-        "cellphone": "公務手機"
-    },
-    {
         "dist": "松山區",
         "villa": "莊敬",
         "name": "劉美鳳",
