@@ -77,7 +77,9 @@ $('#division-bar').find('button').click(function(){
 
 function addVillageData(village){
 
-	 $.getJSON('http://localhost:3000/villa?'+village,{},function(data, status){
+	 var website = location.protocol + "//" + location.host
+	 // $.getJSON('http://localhost:3000/villa?'+village,{},function(data, status){
+	 $.getJSON(website + '/villa?'+village,{},function(data, status){
 	      	console.log(data);
 
 	      	//dataArray = getData(village)    blablabla.....
