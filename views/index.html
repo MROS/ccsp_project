@@ -20,7 +20,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     <style>
         html, body, #map-canvas {
-            height: 500px;
+            height: 430px;
             margin: 0px auto;
             padding: 0px;
             width: 95%;
@@ -174,19 +174,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
     
     <div>
         <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
-
-        <div id="type-selector" class="controls">
-            <!-- <input id="latlng" class="controls" type="text" value="25.018363, 121.537805">
-            <input type="button" value="Reverse Geocode" onclick="codeLatLng()"> -->
-            <input type="radio" name="type" id="changetype-all" checked="checked">
-            <label for="changetype-all">All</label>
-
-            <input type="radio" name="type" id="changetype-establishment">
-            <label for="changetype-establishment">Establishments</label>
-
-            <input type="radio" name="type" id="changetype-geocode">
-            <label for="changetype-geocode">Geocodes</label>
-        </div>
         <div id="map-canvas"></div>
     </div>
     
