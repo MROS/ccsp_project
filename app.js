@@ -41,6 +41,13 @@ app.get('/views/*', function(request, response) {
 
 app.get('/', routes.home);
 app.get('/users', user.list);
+app.get('/leader_info?*', function(request, response) {
+	var str = request.url
+	var villa = decodeURI(str.slice(str.search(/\?/) + 1, str.length));
+	// console.log(JSON.stringify(Villa[villa]));
+	// console.log((JSON.stringify(Villa[villa])));
+	response.render('/views/leader_info', {villa: villa});
+})
 
 // 獲取里訊息
 app.get('/villa?*', function(request, response) {
