@@ -77,7 +77,9 @@ $('#division-bar').find('button').click(function(){
 
 function addVillageData(village){
 
-
+	 $.getJSON('http://localhost:3000/villa?'+village,{},function(data, status){
+	      console.log(data);
+	    });
 	//dataArray = getData(village)    blablabla.....
 	var dataArray = [54000, 1000, 95000, 105000, 10000, 0, 0, 0, 0, 35200, 0, 0, 0];
 	// for (var i=0; i<=12; i++)
