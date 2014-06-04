@@ -140,7 +140,7 @@ function initialize() {
                     }
                     var linkleaderinfo = 'leader_info?' + villanm;
                     console.log(addr.indexOf('里'));
-                    infowindow.setContent('<div><strong>' + placename + '</strong><br><a href="' + linkleaderinfo + '">' + addr + '</a>');
+                    infowindow.setContent('<div><strong>' + placename + '</strong><br>' + addr + '<br><a href="' + linkleaderinfo + '">點我聯絡里長!</a>');
                     infowindow.open(map, marker);
                 } else {
                     alert('No results found');
