@@ -79,11 +79,11 @@ function addVillageData(village){
 
 
 	//dataArray = getData(village)    blablabla.....
-	var dataArray = [];
-	for (var i=0; i<=12; i++)
-	{
-		dataArray.push(5*Math.random());
-	}
+	var dataArray = [54000, 1000, 95000, 105000, 10000, 0, 0, 0, 0, 35200, 0, 0, 0];
+	// for (var i=0; i<=12; i++)
+	// {
+	// 	dataArray.push(5*Math.random());
+	// }
 
 	var myChart = $('#container').highcharts();
 	selectedVillage.push(village);
