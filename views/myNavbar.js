@@ -13,9 +13,10 @@ var myString = function(){/*
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">首頁</a></li>
+                    <li><a href="#">首頁</a></li>
+                    <li><a href="/views/info.html">里長介紹</a></li>
                     <!-- <li><a href="#about">里長戰力</a></li> -->
-                    <li><a href="/views/sample.html">各里經費圖</a></li>
+                    <li><a href="/views/graph.html">各里經費圖</a></li>
                 </ul>
             </div>
         </div>
