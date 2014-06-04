@@ -77,24 +77,29 @@ $('#division-bar').find('button').click(function(){
 
 function addVillageData(village){
 
+	 $.getJSON('http://localhost:3000/villa?'+village,{},function(data, status){
+	      	console.log(data);
 
-	//dataArray = getData(village)    blablabla.....
-	var dataArray = [54000, 1000, 95000, 105000, 10000, 0, 0, 0, 0, 35200, 0, 0, 0];
-	// for (var i=0; i<=12; i++)
-	// {
-	// 	dataArray.push(5*Math.random());
-	// }
+	      	//dataArray = getData(village)    blablabla.....
+			// var dataArray = [54000, 1000, 95000, 105000, 10000, 0, 0, 0, 0, 35200, 0, 0, 0];
+			var dataArray = [];
+			for (var i=0; i<=12; i++)
+			{
+				dataArray.push(parseInt(data[i]['Res']));
+			}
 
-	var myChart = $('#container').highcharts();
-	selectedVillage.push(village);
-	myChart.xAxis[0].setCategories(selectedVillage);
-	for (var i=0; i<13; i++)
-	{
-		myChart.series[i].addPoint(dataArray[i],false);
-	}
-	// console.log(myChart.series[0].data[myChart.series[0].data.length-1].category,myChart.series[0].data[myChart.series[0].data.length-1]);
-	myChart.redraw();
-	setRemoveBtn();
+			var myChart = $('#container').highcharts();
+			selectedVillage.push(village);
+			myChart.xAxis[0].setCategories(selectedVillage);
+			for (var i=0; i<13; i++)
+			{
+				myChart.series[i].addPoint(dataArray[i],false);
+			}
+			// console.log(myChart.series[0].data[myChart.series[0].data.length-1].category,myChart.series[0].data[myChart.series[0].data.length-1]);
+			myChart.redraw();
+			setRemoveBtn();
+		});
+	
 
 }
 
