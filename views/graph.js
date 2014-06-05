@@ -301,17 +301,3 @@ var data = {
 
 //graph init
 myGraph.highcharts(data);
-// setRemoveBtn();
-
-
-
-
-
-
-
-
-// function removeVillageData(village){
-	
-// }
-
-
