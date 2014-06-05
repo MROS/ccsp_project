@@ -13,9 +13,9 @@ var myString = function(){/*
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/views/info.html">各里長介紹</a></li>
+                    <li><a href="/views/info.html">里長職責介紹</a></li>
                     <!-- <li><a href="#about">里長戰力</a></li> -->
-                    <li><a href="/views/graph.html">各里經費圖</a></li>
+                    <li><a href="/views/graph.html">各里經費支出表</a></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">相關連結<b class="caret"></b></a>
