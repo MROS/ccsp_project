@@ -130,7 +130,7 @@ function initialize() {
                     for (var i=0;i<results.length;i++) {
                         var address = results[i].formatted_address;
                         console.log(address);
-                        var vx = address.indexOf('里'), vy = address.indexOf('村');
+                        var vx = address.indexOf('里'), vy = address.indexOf('村'), ci = address.indexOf('市');
                         var chex = vx > 0;
                         var chey = address.indexOf('村') > 0;
                         if (chex) { villanm = address.substring(vx-2, vx); } else { villanm = address.substring(vy-2, vy); }
