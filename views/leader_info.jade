@@ -22,11 +22,12 @@ html(lang="en")
     .container
       .page-header
         h1= "拜訪你家的里長  ──  " + villa + "里"
+        h4#city= city + " " + dist
     #leader_info
       ul
         li= "里長：" + name
         li= "電話：" + phone
-        li= "手機：" + cellphone
+        // li= "手機：" + cellphone
         li= "辦公室地址：" + address
 
     #footer
