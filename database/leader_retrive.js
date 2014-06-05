@@ -11,6 +11,7 @@ var data = fs.readFileSync('data/里長資料/里長名單.json');
 var leaders = JSON.parse(data);
 for (var j = 0; j < leaders.length; j++) { 
 	// console.log(villas[j].Villa);
+	leaders[j].villa = leaders[j].villa.slice(0, 2);
 	leader_data[leaders[j].villa] = leaders[j];
 }
 
