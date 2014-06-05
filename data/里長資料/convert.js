@@ -19,8 +19,8 @@ var villagelist = [];
         var nam = $(links).find('td').eq(5).text();
         var phone = $(links).find('td').eq(6).text();
         var addr = $(links).find('td').eq(7).text();
-				// console.log(cell);
-        var content = { city: city; dist: dist, villa: villa, name: nam, phone: phone, address: addr};
+				// console.log(phone);
+        var content = { city: city, dist: dist, villa: villa, name: nam, phone: phone, address: addr};
         villagelist.push(content);
 			});
 			// console.log(villagelist[400]);
@@ -36,5 +36,5 @@ setTimeout(
 		console.log('It\'s saved!');
 	});
   },
-  8*1000
+  10*1000
 );
