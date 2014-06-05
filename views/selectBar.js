@@ -80,15 +80,28 @@ function addVillageData(village){
 	 var website = location.protocol + "//" + location.host
 	 // $.getJSON('http://localhost:3000/villa?'+village,{},function(data, status){
 	 $.getJSON(website + '/villa?'+village,{},function(data, status){
-	      	console.log(data);
+	      	console.log('============================', village, '============================');
+	      	console.log(village, data);
 
-	      	//dataArray = getData(village)    blablabla.....
-			// var dataArray = [54000, 1000, 95000, 105000, 10000, 0, 0, 0, 0, 35200, 0, 0, 0];
-			var dataArray = [];
-			for (var i=0; i<=12; i++)
+			var dataArray = new Array(13);
+
+			if (data.length!=13) console.log('data length != 13, there may occur some error');
+			for (var i=0; i<data.length; i++)
 			{
-				dataArray.push(parseInt(data[i]['Res']));
+				var ii = getSerieIndex(data[i]['Header']);
+				if (ii!==i) console.log('i',i,'  ii',ii);
+				dataArray[ii] = parseInt(data[i]['Res']);
 			}
+			for (var i = 0; i < 13; i++) {
+				if (typeof(dataArray[i]) == "undefined")
+				{	
+					var serieName = ["防火巷之整頓清理","其他里內公共區域認養之必要支出","守望相助工作","鄰里公園之清潔維護","活動中心里民活動場所各項設施之購置及維修 里民活動場所公共意外責任險 里民活動場所辦理活動補助水電費","里內巷弄簡易照明設施修","巷道或水溝之維修","里鄰資訊電腦化相關設備之設置升級維修零件耗材及電腦網路月租費等","里辦公處辦公機具之購置或租用","為民服務設施之購置、租用及維修","里內防疫保健防災救災器材之購置(或租用)及其他小型零星工程或公共設施","辦理節慶公益環保等相關活動","志工相關費用"];
+					console.log('data don\'t have header',serieName[i]);
+					dataArray[i]=0;
+				}
+			};
+
+
 
 			var myChart = $('#container').highcharts();
 			selectedVillage.push(village);
@@ -102,6 +115,21 @@ function addVillageData(village){
 			setRemoveBtn();
 		});
 	
+
+}
+
+function getSerieIndex(name)
+{
+	var s = ["防火巷","公共區域","守望相助","鄰里公園","里民活動場所","照明設施","水溝","電腦","辦公機具","為民服務設施","防疫保健","節慶公益環保","志工"];
+	for (var i = 0; i < s.length; i++) {
+		if (name.search(s[i])!=-1)
+		{
+			// console.log(i);
+			return i;
+			break;
+		}
+	};
+	console.log('not found matched series name, which is \' ' + name + ' \'');
 
 }
 
